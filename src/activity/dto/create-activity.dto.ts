@@ -5,4 +5,5 @@ export class CreateActivityDto {
   end_hour: string;
   duration: string;
   title_activity: string;
+  projectId: number;
 }

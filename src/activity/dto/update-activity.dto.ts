@@ -8,4 +8,5 @@ export class UpdateActivityDto extends PartialType(CreateActivityDto) {
   end_hour: string;
   duration: string;
   title_activity: string;
+  projectId: number;
 }

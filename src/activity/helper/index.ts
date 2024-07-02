@@ -4,8 +4,6 @@ export function calculateDuration(startTime: string, endTime: string) {
 
   const startDate = new Date(0, 0, 0, startHours, startMinutes);
   const endDate = new Date(0, 0, 0, endHours, endMinutes);
-  console.log(startDate.getTime());
-  console.log(endDate.getTime());
   
   let difference = endDate.getTime() - startDate.getTime();
 

@@ -17,19 +17,46 @@ export class ActivityService {
   }
 
   findAll() {
-    const users = this.prisma.activity.findMany();
+    const users = this.prisma.activity.findMany({
+      include: {
+        project_id: {
+          select: {
+            project_name: true
+          }
+        }
+      }
+    });
     return users;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} activity`;
+  async findOne(id: string) {
+    return await this.prisma.activity.findUnique({
+      where: {
+        id
+      }
+    })
   }
 
-  update(id: number, updateActivityDto: UpdateActivityDto) {
-    return `This action updates a #${id} activity`;
+  async update(id: string, updateActivityDto: UpdateActivityDto) {
+    const updateActivity = await this.prisma.activity.update({
+      where: {
+        id
+      },
+      data: {
+        ...updateActivityDto
+      }
+    })
+
+    return updateActivity
   }
 
-  remove(id: number) {
+  async remove(id: string) {
+    await this.prisma.activity.delete({
+      where: {
+        id
+      }
+    })
+    
     return `This action removes a #${id} activity`;
   }
 }
