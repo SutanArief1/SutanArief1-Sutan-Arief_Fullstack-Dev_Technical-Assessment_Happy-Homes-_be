@@ -6,16 +6,24 @@ import { PrismaService } from 'src/prisma.service';
 @Injectable()
 export class ProjectService {
   constructor(private prisma: PrismaService) {}
-  create(createProjectDto: CreateProjectDto) {
-    return this.prisma.project.create({
-      data: {
-        ...createProjectDto
-      }
-    })
+  async create(createProjectDto: CreateProjectDto) {
+    try {
+      return await this.prisma.project.create({
+        data: {
+          ...createProjectDto
+        }
+      })
+    } catch (error) {
+      throw new Error(`Failed to create project: ${error.message}`)
+    }
   }
 
   findAll() {
-    return this.prisma.project.findMany();
+    return this.prisma.project.findMany({
+      include: {
+        Activity: true
+      },
+    });
   }
 
   findOne(id: number) {
@@ -26,7 +34,13 @@ export class ProjectService {
     return `This action updates a #${id} project`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} project`;
+  async remove(id: number) {
+    await this.prisma.project.delete({
+      where: {
+        id
+      }
+    })
+
+    return { message: `This action removes a #${id} project` }
   }
 }

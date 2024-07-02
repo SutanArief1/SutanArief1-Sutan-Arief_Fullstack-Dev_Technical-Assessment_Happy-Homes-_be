@@ -15,47 +15,34 @@ datasource db {
 
 model Activity {
   id             String    @id @unique @default(cuid())
-  start_date     DateTime?
-  end_date       DateTime?
-  start_hour     String?
-  end_hour       String?
-  duration       String?
-  title_activity String?
+  start_date     DateTime @db.Timestamptz(6)
+  end_date       DateTime @db.Timestamptz(6)
+  duration       String
+  title_activity String
+  created_at     DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime?  @updatedAt @db.Timestamptz(6)
+  deleted_at     DateTime? @db.Timestamptz(6)
   project_id     Project  @relation(fields: [projectId], references: [id])
+  user_id        User     @relation(fields: [userId], references: [id])
   projectId      Int
+  userId         String
 }
 
 model Project {
   id           Int     @id @unique @default(autoincrement())
-  project_name String?
+  project_name String
+  created_at   DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime?  @updatedAt @db.Timestamptz(6)
+  deleted_at   DateTime? @db.Timestamptz(6)
   Activity     Activity[]
 }
 
 model User {
-  id   String  @id @unique @default(cuid())
-  name String?
-  rate Int?
+  id              String     @id @unique @default(cuid())
+  name            String
+  rate            Int
+  created_at      DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime?  @updatedAt @db.Timestamptz(6)
+  deleted_at      DateTime? @db.Timestamptz(6)
+  Activity Activity[]
 }
-
-// model Activity {
-//   id             String    @id @unique @default(cuid())
-//   start_date     DateTime?
-//   end_date       DateTime?
-//   start_hour     Int?
-//   end_hour       Int?
-//   title_activity String?
-//   project_id     Project?  @relation(fields: [projectId], references: [id])
-//   projectId      Int    @unique
-// }
-
-// model Project {
-//   id           Int     @id @unique @default(autoincrement())
-//   project_name String?
-//   Activity     Activity?
-// }
-
-// model User {
-//   id   String  @id @unique @default(cuid())
-//   name String?
-//   rate Int?
-// }

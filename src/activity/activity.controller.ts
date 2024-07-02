@@ -14,7 +14,7 @@ export class ActivityController {
 
     createActivityDto.duration = duration
 
-    return this.activityService.create(createActivityDto);
+    return this.activityService.create(createActivityDto); 
   }
 
   @Get()
