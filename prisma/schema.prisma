@@ -17,8 +17,9 @@ model Activity {
   id             String    @id @unique @default(cuid())
   start_date     DateTime?
   end_date       DateTime?
-  start_hour     Int?
-  end_hour       Int?
+  start_hour     String?
+  end_hour       String?
+  duration       String?
   title_activity String?
   Project        Project?
 }

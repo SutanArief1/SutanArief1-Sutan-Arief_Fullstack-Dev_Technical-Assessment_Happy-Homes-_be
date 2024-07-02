@@ -12,6 +12,8 @@ export class ActivityService {
         ...createActivityDto
       }
     })
+
+    return addActivity
   }
 
   findAll() {

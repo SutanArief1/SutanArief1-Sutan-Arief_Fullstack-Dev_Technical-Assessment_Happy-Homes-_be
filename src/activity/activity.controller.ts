@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ActivityService } from './activity.service';
 import { CreateActivityDto } from './dto/create-activity.dto';
 import { UpdateActivityDto } from './dto/update-activity.dto';
+import { calculateDuration } from './helper';
 
 @Controller('activity')
 export class ActivityController {
@@ -9,6 +10,10 @@ export class ActivityController {
 
   @Post()
   create(@Body() createActivityDto: CreateActivityDto) {
+    const duration = calculateDuration(createActivityDto.start_hour, createActivityDto.end_hour);
+
+    createActivityDto.duration = duration
+
     return this.activityService.create(createActivityDto);
   }
 

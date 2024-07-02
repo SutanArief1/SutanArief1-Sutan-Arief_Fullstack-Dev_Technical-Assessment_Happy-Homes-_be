@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Activity" ALTER COLUMN "start_hour" SET DATA TYPE TEXT,
+ALTER COLUMN "end_hour" SET DATA TYPE TEXT,
+ALTER COLUMN "duration" SET DATA TYPE TEXT;
