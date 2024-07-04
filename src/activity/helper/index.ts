@@ -1,18 +1,22 @@
-export function calculateDuration(startTime: string, endTime: string) {
-  const [startHours, startMinutes] = startTime.split(':').map(Number);
-  const [endHours, endMinutes] = endTime.split(':').map(Number);
+export function calculateDuration(start_date: Date, end_date: Date) {
+  const start = new Date(start_date);
+  const end = new Date(end_date);
 
-  const startDate = new Date(0, 0, 0, startHours, startMinutes);
-  const endDate = new Date(0, 0, 0, endHours, endMinutes);
-  
-  let difference = endDate.getTime() - startDate.getTime();
+  const durationMilliseconds = end.getTime() - start.getTime();
 
-  if (difference < 0) {
-    difference += 24 * 60 * 60 * 1000;
-  }  
+  if (durationMilliseconds < 0) {
+    return '0 Jam 0 menit';
+  }
 
-  const hours = Math.floor(difference / 1000 / 60 / 60);
-  const minutes = Math.floor((difference / 1000 / 60) % 60);
+  const durationMinutes = Math.floor(durationMilliseconds / (1000 * 60));
+  const hours = Math.floor(durationMinutes / 60);
+  const minutes = durationMinutes % 60;
+  const days = Math.floor(hours / 24);
+  const remainingHours = hours % 24;
 
-  return `${hours} Jam ${minutes} menit`
+  if (days > 0) {
+    return `${days} Hari ${remainingHours} Jam ${minutes} menit`;
+  } else {
+    return `${hours} Jam ${minutes} menit`;
+  }
 }

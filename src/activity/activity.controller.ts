@@ -10,7 +10,7 @@ export class ActivityController {
 
   @Post()
   create(@Body() createActivityDto: CreateActivityDto) {
-    const duration = calculateDuration(createActivityDto.start_hour, createActivityDto.end_hour);
+    const duration = calculateDuration(createActivityDto.start_date, createActivityDto.end_date);
 
     createActivityDto.duration = duration
 
@@ -29,7 +29,7 @@ export class ActivityController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateActivityDto: UpdateActivityDto) {
-    const duration = calculateDuration(updateActivityDto.start_hour, updateActivityDto.end_hour);
+    const duration = calculateDuration(updateActivityDto.start_date, updateActivityDto.end_date);
 
     updateActivityDto.duration = duration
 
