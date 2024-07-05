@@ -34,12 +34,12 @@ export class ActivityService {
     try {
       return await this.prisma.activity.findMany({
         include: {
-          project_id: {
+          project: {
             select: {
               project_name: true
             }
           },
-          user_id: true
+          user: true
         }
       });
     } catch (error) {

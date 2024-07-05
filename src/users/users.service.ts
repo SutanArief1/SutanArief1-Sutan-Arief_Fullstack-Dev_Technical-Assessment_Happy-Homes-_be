@@ -22,13 +22,16 @@ export class UsersService {
   findAll() {
     return this.prisma.user.findMany();
   }
-
-  findOne(id: string) {
-    return `This action returns a #${id} user`;
-  }
-
-  update(id: string, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  
+  async findLatestUser() {
+    try {
+      const latestUser = await this.prisma.user.findFirst({
+        orderBy: { created_at: 'desc' },
+      });
+      return latestUser;
+    } catch (error) {
+      throw new Error('Failed to fetch latest user');
+    }
   }
 
   async remove(id: string) {

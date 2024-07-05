@@ -23,9 +23,9 @@ model Activity {
   updated_at     DateTime?  @updatedAt @db.Timestamptz(6)
   deleted_at     DateTime? @db.Timestamptz(6)
   projectId      Int
-  project     Project  @relation(fields: [projectId], references: [id])
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   userId         String
-  user        User     @relation(fields: [userId], references: [id])
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Project {
